@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const SeearchPanel = (props) => {
-  const { param, setParam ,users} = props;
-
+  const { param, setParam, users } = props;
 
   return (
     <form action="">
@@ -17,12 +16,12 @@ export const SeearchPanel = (props) => {
         <select
           name=""
           id=""
-          value={param.perdonId}
-          onChange={(e) => setParam({ ...param, perdonId: e.target.value })}
+          value={param.personId}
+          onChange={(e) => setParam({ ...param, personId: e.target.value })}
         >
           <option value={""}>负责人</option>
           {users.map((user) => (
-            <option key={user.id+user.name} value={user.id}>
+            <option key={user.id + user.name} value={user.id}>
               {user.name}
             </option>
           ))}
