@@ -1,0 +1,4 @@
+// .prettier不需要格式的文件
+
+build
+coverage
