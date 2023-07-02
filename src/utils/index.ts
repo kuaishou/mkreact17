@@ -21,7 +21,7 @@ export const useMount = (callback: () => void) => {
   }, []);
 };
 
-export const useDebounce = <V>(value: V, delay?: number): any => {
+export const useDebounce = <V>(value: V, delay?: number) => {
   //防抖
   //每次变化就设置一个定时器
   const [debounceValue, setDebounceValue] = useState(value);
@@ -33,4 +33,19 @@ export const useDebounce = <V>(value: V, delay?: number): any => {
     return () => clearTimeout(timeout);
   }, [value, delay]);
   return debounceValue;
+};
+
+export const useArray = <T>(initArray: T[]) => {
+  const [value, setValue] = useState(initArray);
+  return {
+    value,
+    setValue,
+    add: (item: T) => setValue([...value, item]),
+    clear: () => setValue([]),
+    removeIndex: (index: number) => {
+      const copy = [...value];
+      copy.splice(index, 1);
+      setValue(copy);
+    },
+  };
 };
