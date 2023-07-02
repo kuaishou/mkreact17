@@ -5,7 +5,7 @@ export const AuthenticatedApp = () => {
   const { loginOut } = useAuth();
   return (
     <div>
-      <button onClick={() => loginOut}> 退出登录</button>
+      <button onClick={() => loginOut()}> 退出登录</button>
       <Projectlist></Projectlist>
     </div>
   );
