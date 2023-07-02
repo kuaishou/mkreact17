@@ -1,6 +1,19 @@
-import { useEffect, useState } from "react";
-
-export const SeearchPanel = (props) => {
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  title: string;
+  organization: string;
+}
+interface searchPanelPrors {
+  users: User[];
+  param: {
+    name: string;
+    personId: string;
+  };
+  setParam: (param: searchPanelPrors["param"]) => void;
+}
+export const SeearchPanel = (props: searchPanelPrors) => {
   const { param, setParam, users } = props;
 
   return (
