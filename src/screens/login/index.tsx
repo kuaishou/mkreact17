@@ -1,17 +1,21 @@
+import { useAuth } from "context/auth-context";
 import { FormEvent } from "react";
 const baseApi = process.env.REACT_APP_API_URL;
 export const LoginScreen = () => {
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${baseApi}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(param),
-    }).then(async (response) => {
-      if (response.ok) {
-        console.log(response);
-      }
-    });
-  };
+  // 使用Context取代下面请求形式
+  // const { login, user } = useAuth()
+  const { register, user } = useAuth();
+  //   const login = (param: { username: string; password: string }) => {
+  //     fetch(`${baseApi}/login`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(param),
+  //     }).then(async (response) => {
+  //       if (response.ok) {
+  //         console.log(response);
+  //       }
+  //     });
+  //   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,11 +24,12 @@ export const LoginScreen = () => {
     const password = (event.currentTarget.elements[1] as HTMLInputElement)
       .value;
 
-    login({ username, password });
+    register({ username, password });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {user ? <div>登录成功token{user.token}</div> : null}
       <div>
         <label htmlFor="userNname">用户名</label>
         <input type="text" id={"username"} />
