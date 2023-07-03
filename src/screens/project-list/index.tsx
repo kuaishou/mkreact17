@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { SeearchPanel } from "./search-panel";
 import { List } from "./list";
 import { cleanObject, useDebounce } from "../../utils";
-import * as qs from "qs";
 import { useHttp } from "utils/http";
-const baseApi = process.env.REACT_APP_API_URL;
+
 export const Projectlist = () => {
   const [param, setParam] = useState({
     name: "",
@@ -26,6 +25,7 @@ export const Projectlist = () => {
     //     setList(await response.json());
     //   }
     // });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounceParam]);
   useEffect(() => {
     console.log("加载了");
@@ -35,6 +35,7 @@ export const Projectlist = () => {
     //     setUsers(await response.json());
     //   }
     // });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
