@@ -1,3 +1,4 @@
+import { title } from "process";
 import { useEffect, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
@@ -48,4 +49,22 @@ export const useArray = <T>(initArray: T[]) => {
       setValue(copy);
     },
   };
+};
+
+//设置页面标题
+export const useDocumentTitle = (
+  title: string,
+  keepOnUnmount: boolean = true
+) => {
+  const oldTitle = document.title;
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+  useEffect(() => {
+    return () => {
+      if (!keepOnUnmount) {
+        document.title = oldTitle;
+      }
+    };
+  }, []);
 };
