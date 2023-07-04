@@ -6,11 +6,11 @@ import { useHttp } from "utils/http";
 import { useUrlQueryParam } from "utils/url";
 
 export const Projectlist = () => {
-  const [, setParam] = useState({
-    name: "",
-    personId: "",
-  });
-  const [param] = useUrlQueryParam(["name", "personId"]);
+  // const [, setParam] = useState({
+  //   name: "",
+  //   personId: "",
+  // });
+  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
 
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]);

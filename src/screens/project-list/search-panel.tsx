@@ -1,7 +1,7 @@
 import { Select, Input } from "antd";
 
 export interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
   title: string;
@@ -35,7 +35,7 @@ export const SeearchPanel = (props: searchPanelPrors) => {
         >
           <Select.Option value={""}>负责人</Select.Option>
           {users.map((user) => (
-            <Select.Option key={user.id + user.name} value={user.id}>
+            <Select.Option key={user.id + user.name} value={String(user.id)}>
               {user.name}
             </Select.Option>
           ))}
