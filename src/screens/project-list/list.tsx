@@ -1,5 +1,6 @@
 import { Table } from "antd";
 import { User } from "./search-panel";
+import { Link } from "react-router-dom";
 export interface projest {
   id: string;
   name: string;
@@ -7,6 +8,7 @@ export interface projest {
   title: string;
   personId: number;
   organization: string;
+  created: number;
 }
 
 interface listProps {
@@ -17,14 +19,19 @@ export const List = ({ list, users }: listProps) => {
   const columns = [
     {
       title: "名称",
-      dataIndex: "name",
-      key: "name",
+      key: "title",
+      dataIndex: "title",
+      render(value: any, project: projest) {
+        // 在一个Route下使用Link  会自动当做当前的子路由  /project   => /projetc/5
+        return <Link to={String(project.id)}>{project.name}</Link>;
+      },
+      sorter: (a: any, b: any) => a.name.localeCompare(b.name),
     },
     {
       title: "负责人",
-      key: "tags",
-      dataIndex: "tags",
-      render: (value: any, project: { personId: number }) => {
+      key: "name",
+      dataIndex: "name",
+      render(value: any, project: { personId: number }) {
         return (
           <span>
             {users.find((user) => user.id === project.personId)?.name || "未知"}
