@@ -1,18 +1,18 @@
 import { Table } from "antd";
 import { User } from "./search-panel";
 import { Link } from "react-router-dom";
-export interface projest {
-  id: string;
+export interface Project {
+  id: number;
   name: string;
-  email: string;
   title: string;
   personId: number;
+  pin: boolean;
   organization: string;
   created: number;
 }
 
 interface listProps {
-  list: projest[];
+  list: Project[];
   users: User[];
 }
 export const List = ({ list, users }: listProps) => {
@@ -21,7 +21,7 @@ export const List = ({ list, users }: listProps) => {
       title: "名称",
       key: "title",
       dataIndex: "title",
-      render(value: any, project: projest) {
+      render(value: any, project: Project) {
         // 在一个Route下使用Link  会自动当做当前的子路由  /project   => /projetc/5
         return <Link to={String(project.id)}>{project.name}</Link>;
       },

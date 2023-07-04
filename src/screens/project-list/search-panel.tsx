@@ -1,7 +1,9 @@
 import { Select, Input } from "antd";
+import { IdSelect } from "components/id-select";
+import { Project } from "./list";
 
 export interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
   title: string;
@@ -10,10 +12,7 @@ export interface User {
 }
 interface searchPanelPrors {
   users: User[];
-  param: {
-    name: string;
-    personId: string;
-  };
+  param: Partial<Pick<Project, "name" | "personId">>;
   setParam: (param: searchPanelPrors["param"]) => void;
 }
 export const SeearchPanel = (props: searchPanelPrors) => {
@@ -29,7 +28,13 @@ export const SeearchPanel = (props: searchPanelPrors) => {
         />
       </div>
       <div>
-        <Select
+        <IdSelect
+          defaultOprionName="负责人"
+          value={param.personId}
+          onChange={(value) => setParam({ ...param, personId: value })}
+          options={users || []}
+        ></IdSelect>
+        {/* <Select
           value={param.personId}
           onChange={(value) => setParam({ ...param, personId: value })}
         >
@@ -39,7 +44,7 @@ export const SeearchPanel = (props: searchPanelPrors) => {
               {user.name}
             </Select.Option>
           ))}
-        </Select>
+        </Select> */}
       </div>
     </form>
   );
