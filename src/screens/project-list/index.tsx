@@ -3,12 +3,15 @@ import { SeearchPanel } from "./search-panel";
 import { List } from "./list";
 import { cleanObject, useDebounce } from "../../utils";
 import { useHttp } from "utils/http";
+import { useUrlQueryParam } from "utils/url";
 
 export const Projectlist = () => {
-  const [param, setParam] = useState({
+  const [, setParam] = useState({
     name: "",
     personId: "",
   });
+  const [param] = useUrlQueryParam(["name", "personId"]);
+
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]);
   const debounceParam = useDebounce(param, 500); //500毫秒防抖
@@ -30,11 +33,7 @@ export const Projectlist = () => {
   useEffect(() => {
     console.log("加载了");
     client("users").then((res) => setUsers(res));
-    // fetch(`${baseApi}/users`).then(async (response) => {
-    //   if (response.ok) {
-    //     setUsers(await response.json());
-    //   }
-    // });
+
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -45,3 +44,5 @@ export const Projectlist = () => {
     </div>
   );
 };
+
+Projectlist.whyDidYouRender = true;
