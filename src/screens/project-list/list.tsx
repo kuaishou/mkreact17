@@ -1,6 +1,9 @@
 import { Table } from "antd";
 import { User } from "./search-panel";
 import { Link } from "react-router-dom";
+import { Pin } from "components/pin";
+import dayjs from "dayjs";
+import { useEditProject } from "utils/project";
 export interface Project {
   id: number;
   name: string;
@@ -16,17 +19,33 @@ interface listProps {
   users: User[];
 }
 export const List = ({ list, users }: listProps) => {
+  const { mutate } = useEditProject();
+  // const { mutate } = useEditProject( useProjectsQueryKey() )
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
   const columns = [
     {
+      title: <Pin checked={true} disabled={true} />,
+      render(value, project: Project) {
+        return (
+          <Pin checked={project.pin} onCheckedChange={pinProject(project.id)} />
+        );
+      },
+    },
+    {
       title: "名称",
-      key: "title",
-      dataIndex: "title",
+      key: "name",
+      dataIndex: "name",
       render(value: any, project: Project) {
         // 在一个Route下使用Link  会自动当做当前的子路由  /project   => /projetc/5
         return <Link to={String(project.id)}>{project.name}</Link>;
       },
       sorter: (a: any, b: any) => a.name.localeCompare(b.name),
     },
+    {
+      title: "部门 ",
+      dataIndex: "organization",
+    },
+
     {
       title: "负责人",
       key: "name",
@@ -35,6 +54,18 @@ export const List = ({ list, users }: listProps) => {
         return (
           <span>
             {users.find((user) => user.id === project.personId)?.name || "未知"}
+          </span>
+        );
+      },
+    },
+    {
+      title: "创建时间",
+      render(value: any, project: { created: any }) {
+        return (
+          <span>
+            {project.created
+              ? dayjs(project.created).format("YYYY-MM-DD")
+              : "无"}
           </span>
         );
       },
